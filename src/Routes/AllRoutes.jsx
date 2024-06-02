@@ -21,7 +21,7 @@ const AllRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<DLogin />} />
+        <Route path="/" element={<FrontPage />} />
         <Route path="/dashboard" element={<FrontPage />} />
         <Route path="/addoctor" element={<AddDoctor />} />
         <Route path="/addambulance" element={<Add_Ambulance />} />
