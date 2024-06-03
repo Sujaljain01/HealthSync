@@ -1,0 +1,21 @@
+/* your-calendar-styles.css */
+
+.rbc-header {
+    /* Customize header styles */
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  .rbc-time-slot {
+    /* Customize time slot styles */
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .rbc-event {
+    /* Customize event styles */
+    background-color: #337ab7;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  

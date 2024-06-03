@@ -58,24 +58,8 @@ const Sidebar = () => {
               </div>
             </Link>
 
-            {user?.userType === "nurse" ? (
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/nurseprofile"}
-              >
-                <div className="icon">
-                  <CgProfile className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Profile
-                </div>
-              </Link>
-            ) : null}
-            {user?.userType === "nurse" ? (
+            
+            
               <Link
                 className="link"
                 activeclassname="active"
@@ -91,9 +75,9 @@ const Sidebar = () => {
                   Add Patient
                 </div>
               </Link>
-            ) : null}
+            
 
-            {user?.userType === "nurse" ? (
+            
               <Link
                 className="link"
                 activeclassname="active"
@@ -109,81 +93,25 @@ const Sidebar = () => {
                   Appointments
                 </div>
               </Link>
-            ) : null}
-            {user?.userType === "admin" ? (
-              <Link className="link" activeclassname="active" to={"/addoctor"}>
-                <div className="icon">
-                  <AiOutlineUserAdd className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
+           
+      
+            
+              <Link className="link" activeclassname="active" to={"/calendar"}>
+                 <div className="icon">
+                    <BsFillBookmarkCheckFill
+                      className="mainIcon"
+                      style={{ color: "white" }}
+                    />
+                  </div>
+                  <div
+                   style={{ display: isOpen ? "block" : "none" }} 
+                    className="link_text"
                 >
-                  Add Doctor
+                  Appointments
                 </div>
               </Link>
-            ) : null}
-            {user?.userType === "admin" ? (
-              <Link className="link" activeclassname="active" to={"/addnurse"}>
-                <div className="icon">
-                  <GiNurseFemale className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Add Nurse
-                </div>
-              </Link>
-            ) : null}
-            {user?.userType === "admin" ? (
-              <Link className="link" activeclassname="active" to={"/admin"}>
-                <div className="icon">
-                  <RiAdminLine
-                    className="mainIcon"
-                    style={{ color: "white" }}
-                  />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Add Admin
-                </div>
-              </Link>
-            ) : null}
 
-            {user?.userType === "admin" ? (
-              <Link className="link" activeclassname="active" to={"/addbeds"}>
-                <div className="icon">
-                  <TbBed className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Add Beds
-                </div>
-              </Link>
-            ) : null}
-
-            {user?.userType === "admin" ? (
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/addambulance"}
-              >
-                <div className="icon">
-                  <FaAmbulance className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Add AMBU
-                </div>
-              </Link>
-            ) : null}
+        
             {/* {user?.userType === "admin" ? (
               <Link
                 className="link"
@@ -201,36 +129,9 @@ const Sidebar = () => {
                 </div>
               </Link>
             ) : null} */}
-
-            {user?.userType === "doctor" ? (
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/doctorprofile"}
-              >
-                <div className="icon">
-                  <SlUserFollow className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Profile
-                </div>
-              </Link>
-            ) : null}
-            <Link className="link" activeclassname="active" to={"/rooms"}>
-              <div className="icon">
-                <MdBedroomChild className="mainIcon" />
-              </div>
-              <div
-                style={{ display: isOpen ? "block" : "none" }}
-                className="link_text"
-              >
-                Beds
-              </div>
-            </Link>
-            {user?.userType === "doctor" ? (
+           
+           
+            
               <Link className="link" activeclassname="active" to={"/reports"}>
                 <div className="icon">
                   <TbReportMedical className="mainIcon" />
@@ -242,8 +143,8 @@ const Sidebar = () => {
                   Reports
                 </div>
               </Link>
-            ) : null}
-            {user?.userType === "doctor" ? (
+            
+            
               <Link
                 className="link"
                 activeclassname="active"
@@ -259,8 +160,8 @@ const Sidebar = () => {
                   Appointments
                 </div>
               </Link>
-            ) : null}
-            {user?.userType === "doctor" ? (
+            
+           
               <Link
                 className="link"
                 activeclassname="active"
@@ -276,7 +177,7 @@ const Sidebar = () => {
                   Create Report
                 </div>
               </Link>
-            ) : null}
+           
             {/* {user?.userType === "doctor" ? (
               <Link
                 className="link"

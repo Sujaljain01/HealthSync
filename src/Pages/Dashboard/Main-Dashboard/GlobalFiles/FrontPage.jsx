@@ -74,23 +74,8 @@ const FrontPage = () => {
             </div>
             <RiAdminLine className="overviewIcon" />
           </div>
-          <div className="four commondiv">
-            {" "}
-            <div>
-              <h1>{data?.bed}</h1>
-              <p>Beds</p>
-            </div>
-            <FaBed className="overviewIcon" />
-          </div>
+       
 
-          <div className="five commondiv">
-            {" "}
-            <div>
-              <h1>{data?.ambulance}</h1>
-              <p>Ambulance</p>
-            </div>
-            <FaAmbulance className="overviewIcon" />
-          </div>
           <div className="six commondiv">
             {" "}
             <div>
