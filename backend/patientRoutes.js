@@ -21,10 +21,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post('/uploadDoc', upload.array('file'), async (req, res) => {
+router.post('/uploadDoc/:patientId', upload.array('file'), async (req, res) => {
     try {
+        const id = req.params.patientId;
         const file = req.body;
-        console.log("doc", req.body);
+        const uniqueSuffix = Date.now();
+        const title = uniqueSuffix+req.body.title;
+
+        await ex.models.Patient.findOne({username : id}).then((p)=>{
+            p.medicalRecords.push(title);
+            p.save();
+        });
+        
         res.send({ message: "uploaded" })
     }
     catch (error) {

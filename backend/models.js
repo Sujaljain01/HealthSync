@@ -2,22 +2,22 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const patientSchema = new Schema({
-    firstName: String,
-    lastName: String,
-    dateOfBirth: Date,
-    email : String,
     username : String,
+    name:String,
+    age: Number,
+    //email : String,
     password : String,
     gender: { type: String, enum: ['Male', 'Female', 'Other']},
     contactNumber: Number,
-    address: {
-        street: String,
-        city: String,
-        state: String,
-        postalCode: String
-    },
-    medicalRecords: [{ type: Schema.Types.ObjectId, ref: 'MedicalRecord' }],
-    documents: [{ type: Schema.Types.ObjectId, ref: 'Document' }]
+    // address: {
+    //     street: String,
+    //     city: String,
+    //     state: String,
+    //     postalCode: String
+    // },
+    bloodGroup : String,
+    medicalRecords: [{ type: String}],
+    documents: [{ type: String}]
 });
 
 

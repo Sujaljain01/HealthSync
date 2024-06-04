@@ -5,46 +5,35 @@ import { CreatePayment, CreateReport } from "../../../../../Redux/Datas/action";
 import Sidebar from "../../GlobalFiles/Sidebar";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 const notify = (text) => toast(text);
 
-const Discharge_and_Create_Slip = () => {
+const CreatePatientProfile = () => {
   const { data } = useSelector((store) => store.auth);
 
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const initmed = {
-    medName: "",
-    dosage: "",
-    duration: "",
-  };
-  const [med, setmed] = useState(initmed);
+  // const initmed = {
+  //   medName: "",
+  //   dosage: "",
+  //   duration: "",
+  // };
+  // const [med, setmed] = useState(initmed);
 
-  const [medicines, setmedicines] = useState([]);
+  // const [medicines, setmedicines] = useState([]);
 
-  const HandleMedChange = (e) => {
-    setmed({ ...med, [e.target.name]: e.target.value });
-  };
+  // const HandleMedChange = (e) => {
+  //   setmed({ ...med, [e.target.name]: e.target.value });
+  // };
 
   const InitData = {
-    docName: "",
-    docDepartment: "",
+    patientId : "",
     patientAge: "",
-    docMobile: "",
     patientMobile: "",
     patientBloodGroup: "",
     patientGender: "",
-    email: "",
-    patientDisease: "",
-    patientTemperature: "",
-    patientWeight: "",
-    patientBP: "",
-    patientGlucose: "",
-    patientName: "",
-    extrainfo: "",
-    date: "",
-    time: "",
-    medicines: [],
+    patientName: ""
   };
 
   const [ReportValue, setReportValue] = useState(InitData);
@@ -53,42 +42,28 @@ const Discharge_and_Create_Slip = () => {
     setReportValue({ ...ReportValue, [e.target.name]: e.target.value });
   };
 
-  const HandleMedAdd = (e) => {
-    e.preventDefault();
-    setmedicines([...medicines, med]);
-    setmed(initmed);
-  };
+
 
   const HandleReportSubmit = (e) => {
     e.preventDefault();
     let data = {
-      ...ReportValue,
-      medicines,
+      ...ReportValue
     };
     try {
-      setLoading(true);
-      dispatch(CreateReport(data)).then((res) => {
-        if (res.message === "Report successfully created") {
-          notify("Report Created Sucessfully");
-          setLoading(false);
-          setReportValue(InitData);
-        } else {
-          setLoading(false);
-          notify("Something went Wrong");
-        }
-      });
+      console.log(data);
+      axios.post('http://localhost:4000/doctors/patientRegistration',data)
     } catch (error) {
       console.log(error);
     }
   };
 
-  if (data?.isAuthticated === false) {
-    return <Navigate to={"/"} />;
-  }
+  // if (data?.isAuthticated === false) {
+  //   return <Navigate to={"/"} />;
+  // }
 
-  if (data?.user.userType !== "doctor") {
-    return <Navigate to={"/dashboard"} />;
-  }
+  // if (data?.user.userType !== "doctor") {
+  //   return <Navigate to={"/dashboard"} />;
+  // }
   return (
     <>
       <ToastContainer />
@@ -98,41 +73,16 @@ const Discharge_and_Create_Slip = () => {
           <div className="Main_Add_Doctor_div">
             <h1>Create Report</h1>
             <form>
-              <div>
-                <label>Doctor Name</label>
+            <div>
+            <label>Patient Id</label>
                 <div className="inputdiv">
                   <input
                     type="text"
-                    placeholder="Full Name"
-                    name="docName"
-                    value={ReportValue.docName}
+                    placeholder="Id"
+                    name="patientId"
+                    value={ReportValue.patientId}
                     onChange={HandleReportChange}
                     required
-                  />
-                </div>
-              </div>
-              <div>
-                <label>Department</label>
-                <div className="inputdiv">
-                  <input
-                    type="text"
-                    placeholder="Department"
-                    name="docDepartment"
-                    value={ReportValue.docDepartment}
-                    onChange={HandleReportChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <label>Doctor Mobile</label>
-                <div className="inputdiv">
-                  <input
-                    type="number"
-                    placeholder="No"
-                    name="docMobile"
-                    value={ReportValue.docMobile}
-                    onChange={HandleReportChange}
                   />
                 </div>
               </div>
@@ -166,7 +116,7 @@ const Discharge_and_Create_Slip = () => {
                 <label>Patient Mobile</label>
                 <div className="inputdiv">
                   <input
-                    type="number"
+                    type="text"
                     placeholder="Mobile"
                     name="patientMobile"
                     value={ReportValue.patientMobile}
@@ -175,19 +125,7 @@ const Discharge_and_Create_Slip = () => {
                   />
                 </div>
               </div>
-              <div>
-                <label>Email</label>
-                <div className="inputdiv">
-                  <input
-                    type="email"
-                    placeholder="abc@abc"
-                    name="email"
-                    value={ReportValue.email}
-                    onChange={HandleReportChange}
-                    required
-                  />
-                </div>
-              </div>
+              
               <div>
                 <label>Patient Gender</label>
                 <div className="inputdiv">
@@ -224,82 +162,11 @@ const Discharge_and_Create_Slip = () => {
                   </select>
                 </div>
               </div>
-              <div>
-                <label>Patient Disease</label>
-                <div className="inputdiv">
-                  <input
-                    type="text"
-                    placeholder="Disease"
-                    name="patientDisease"
-                    value={ReportValue.patientDisease}
-                    onChange={HandleReportChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <label>Patient Temperature</label>
-                <div className="inputdiv">
-                  <input
-                    type="number"
-                    placeholder="99^C"
-                    name="patientTemperature"
-                    value={ReportValue.patientTemperature}
-                    onChange={HandleReportChange}
-                  />
-                </div>
-              </div>
 
-              <div>
-                <label>Patient Weight</label>
-                <div className="inputdiv">
-                  <input
-                    type="number"
-                    placeholder="75 KG"
-                    name="patientWeight"
-                    value={ReportValue.patientWeight}
-                    onChange={HandleReportChange}
-                  />
-                </div>
-              </div>
-              <div>
-                <label>Patient BP</label>
-                <div className="inputdiv adressdiv">
-                  <input
-                    type="number"
-                    placeholder="140/90 mmHg"
-                    name="patientBP"
-                    value={ReportValue.patientBP}
-                    onChange={HandleReportChange}
-                  />
-                </div>
-              </div>
-              <div>
-                <label>Patient Glucose</label>
-                <div className="inputdiv">
-                  <input
-                    type="number"
-                    placeholder="99 mg/dL"
-                    name="patientGlucose"
-                    value={ReportValue.patientGlucose}
-                    onChange={HandleReportChange}
-                  />
-                </div>
-              </div>
-              <div>
-                <label>Extra Info</label>
-                <div className="inputdiv">
-                  <input
-                    type="text"
-                    placeholder="Info"
-                    name="extrainfo"
-                    value={ReportValue.extrainfo}
-                    onChange={HandleReportChange}
-                  />
-                </div>
-              </div>
+              
+              
               {/* ******************************************** */}
-              <div>
+              {/* <div>
                 <label>Medicines</label>
                 <div className="inputdiv">
                   <input
@@ -323,8 +190,9 @@ const Discharge_and_Create_Slip = () => {
                   <input type="submit" value={"Add"} onClick={HandleMedAdd} />
                 </div>
               </div>
+               */}
               {/* *********************************** */}
-              <div>
+              {/* <div>
                 <label>Date</label>
                 <div className="inputdiv">
                   <input
@@ -346,13 +214,13 @@ const Discharge_and_Create_Slip = () => {
                     onChange={HandleReportChange}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <button
                 className="formsubmitbutton bookingbutton"
                 onClick={HandleReportSubmit}
               >
-                {loading ? "Loading..." : "Generate Report"}
+                {loading ? "Loading..." : "Generate Patient Profile"}
               </button>
             </form>
           </div>
@@ -362,4 +230,4 @@ const Discharge_and_Create_Slip = () => {
   );
 };
 
-export default Discharge_and_Create_Slip;
+export default CreatePatientProfile;
