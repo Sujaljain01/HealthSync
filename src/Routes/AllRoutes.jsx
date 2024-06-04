@@ -11,11 +11,12 @@ import Book_Appointment from "../Pages/Dashboard/Main-Dashboard/AllPages/hospita
 
 import FrontPage from "../Pages/Dashboard/Main-Dashboard/GlobalFiles/FrontPage";
 import MyCalendar from "../Pages/Dashboard/Main-Dashboard/AllPages/hospital_Management/MyCalendar";
+import DocUpload from "../Pages/Dashboard/Main-Dashboard/AllPages/Patient/uploadDoc";
 const AllRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<DLogin />} />
+        <Route path="/" element={<DocUpload />} />
         <Route path="/dashboard" element={<FrontPage />} />
         ******************** hospital_Management Part *************************
         <Route path="/reports" element={<AllReport />} />

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Radio } from "antd";
 import banner from "../../../img/banner.png";
 import admin from "../../../img/admin.jpg";
 import "./DLogin.css";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { authContext } from '../../../Context/AuthContext.jsx';
 import {
   AdminLogin,
   DoctorLogin,
@@ -20,6 +20,7 @@ const notify = (text) => toast(text);
 const DLogin = () => {
   const [role, setRole] = useState('Patient');
   const [open, setOpen] = useState(false);
+  const { dispatch } = useContext(authContext);
 
   const showDrawer = () => {
     setOpen(true);
@@ -132,6 +133,14 @@ const DLogin = () => {
         console.log(response);
         if(response.statusText === 'OK') 
         {
+          dispatch({
+            type: "LOGIN_SUCCESS",
+            payload: {
+                user: response.data.data.user,
+                token: response.data.data.accessToken,
+                role: response.data.data.role
+            }
+        });
             window.location.href = `/dashboard`;
         }
 

@@ -54,8 +54,6 @@ const MedicalRecord = new mongoose.model("MedicalRecord", medicalRecordSchema);
 const documentSchema = new Schema({
     patient: { type: Schema.Types.ObjectId, ref: 'Patient', required: true },
     fileName: { type: String, required: true },
-    fileType: { type: String, required: true },
-    fileUrl: { type: String, required: true },
     uploadedAt: { type: Date, default: Date.now }
 });
 
