@@ -79,7 +79,9 @@ const CreatePatientProfile = () => {
             <h2>Create Patient Profile</h2>
             <form>
             {/* <div> */}
+            
             <div className="form-group">
+         <br />
             <label>Patient Id</label>
                 
                   <input
