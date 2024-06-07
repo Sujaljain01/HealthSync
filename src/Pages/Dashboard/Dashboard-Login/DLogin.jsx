@@ -12,7 +12,6 @@ import {
   NurseLogin,
 } from "../../../Redux/auth/action";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Drawer } from "antd";
 import axios from 'axios';
 const notify = (text) => toast(text);
@@ -35,7 +34,6 @@ const DLogin = () => {
   const [formvalue, setFormvalue] = useState({
     username: "",
     password: "",
-    role: "Patient"
   });
   // const dispatch = useDispatch();
 
@@ -43,6 +41,7 @@ const DLogin = () => {
     setFormvalue({ ...formvalue, [e.target.name]: e.target.value });
   };
   const navigate = useNavigate();
+
   async function HandleSubmit(e){
     e.preventDefault();
     setLoading(true);
@@ -128,20 +127,12 @@ const DLogin = () => {
       // });
 
         e.preventDefault();
-        console.log("role",formvalue)
-        await axios.post('http://localhost:4000/login',{formvalue},{headers: {'Content-Type': 'application/json'}}).then((response)=>{
-        console.log(response);
+        console.log("role",role)
+        await axios.post('http://localhost:4000/login',{formvalue, role},{headers: {'Content-Type': 'application/json'}}).then((response)=>{
+        
         if(response.statusText === 'OK') 
         {
-          dispatch({
-            type: "LOGIN_SUCCESS",
-            payload: {
-                user: response.data.data.user,
-                token: response.data.data.accessToken,
-                role: response.data.data.role
-            }
-        });
-            window.location.href = `/dashboard`;
+            window.location.href = `/dashboard/${response.data.data.user.username}`;
         }
 
         else
@@ -210,10 +201,10 @@ return (
             {/* <Radio.Button value="Nurse" className={"radiobutton"}>
               Nurse
             </Radio.Button> */}
-            <Radio.Button value="Doctor" className={"radiobutton"}>
+            <Radio.Button value="Doctor" className={"radiobutton"} onChange={roleChange}>
               Doctor
             </Radio.Button>
-            <Radio.Button value="Patient" className={"radiobutton"}>
+            <Radio.Button value="Patient" className={"radiobutton"} onChange={roleChange}>
               Patient
             </Radio.Button>
           </Radio.Group>
@@ -243,7 +234,7 @@ return (
               onChange={Handlechange}
               required
             />
-            <button type="submit">{Loading ? "Loading..." : "Submit"}</button>
+            <button type="submit" onClick = {HandleSubmit}>{Loading ? "Loading..." : "Submit"}</button>
             <p style={{ marginTop: "10px" }}>
               Forget Password?{" "}
               <span

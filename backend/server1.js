@@ -62,27 +62,85 @@ app.use('/patients', patientRouter);
 app.use('/doctors',doctorRouter);
 
 
-app.get('/api/precautions/:healthIssue', async (req, res) => {
-  const healthIssue = req.params.healthIssue;
-  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+// app.get('/api/precautions/:healthIssue', async (req, res) => {
+//   const healthIssue = req.params.healthIssue;
+//   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-  const prompt = `Give me 6 precautions in pointwise for health issue ${healthIssue} ,each precautions should not be more than 5 words`;
+//   const prompt = `Give me 6 precautions in pointwise for health issue ${healthIssue} ,each precautions should not be more than 5 words`;
 
-  try {
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = await response.text();
+//   try {
+//       const result = await model.generateContent(prompt);
+//       const response = await result.response;
+//       const text = await response.text();
 
-      const precautions = text.split('\n').map(item => item.trim()).filter(item => item);
+//       const precautions = text.split('\n').map(item => item.trim()).filter(item => item);
 
-      res.json(precautions);
-  } catch (error) {
-      console.error("Error generating content:", error);
-      res.status(500).send("Error generating content");
-  }
-});
+//       res.json(precautions);
+//   } catch (error) {
+//       console.error("Error generating content:", error);
+//       res.status(500).send("Error generating content");
+//   }
+// });
 
 
+app.get('/api/precautions/:patientId', async (req, res) => {
+    // const healthIssue = req.params.healthIssue;
+    const id = req.params.patientId;
+      await ex.models.Patient.find({username : id}).then(async (p)=>{
+          const healthIssue = p.healthIssues;
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  
+  
+    const prompt = `Provide detailed below information on the disease called ${healthIssue},each should contain only 5 points:
+      Information
+      (line space)
+      Symptoms (each with a tab space)
+      (line space)
+      Risk factors (each with a tab space)
+      (line space)
+      Precautions (each with a tab space)
+      (line space)
+      Importance of Medication prescribed by the doctor (line space)
+      
+      
+      **Example output is given below:**
+      Information: Chest pain
+  
+      Symptoms:
+      Fluttering in your chest (palpitations)    Slow heartbeat (bradycardia)    Chest pain or tightness  Lightheadedness or dizziness    Fainting (syncope)
+  
+      Risk factors:
+      Age (arrhythmias are more common in older adults)   Heart disease   High blood pressure    Diabetes    Obesity
+  
+      Precautions:
+      Maintain a healthy weight   Eat a healthy diet  Exercise regularly  Manage stress
+  
+      Importance of Medication:
+      If you have a heart condition, it's important to follow your doctor's treatment plan to help reduce your risk of arrhythmias`;
+  
+    try {
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = await response.text();
+  
+        // Parsing the response text into structured data
+        const sections = text.split('\n\n').filter(section => section.trim() !== '');
+        const structuredData = {
+          information: sections[0].trim(),
+          symptoms: sections[1].replace('Symptoms:', '').split('\t').map(item => item.trim()).filter(item => item),
+          riskFactors: sections[2].replace('Risk factors:', '').split('\t').map(item => item.trim()).filter(item => item),
+          precautions: sections[3].replace('Precautions:', '').split('\t').map(item => item.trim()).filter(item => item),
+          medicationImportance: sections[4].trim()
+        };
+  
+        res.json(structuredData);
+    } catch (error) {
+        console.error("Error generating content:", error);
+        res.status(500).send("Error generating content");
+    }
+  });
+  })
+  
 mongoose.connect("mongodb://127.0.0.1:27017/healthManagement2", {UseNewUrlParser : true}).then(function(){
       console.log("connected")}).catch(function(err){
       console.log(err);

@@ -18,8 +18,8 @@ const AllRoutes = () => {
     <>
       <Routes>
         {/* <Route path="/" element={<Precautions healthIssue="Kidney stone" />} /> */}
-        <Route path="/" element={<ViewAndUpdatePatient />} />
-        <Route path="/dashboard" element={<FrontPage />} />
+        <Route path="/" element={<DLogin />} />
+        <Route path="/dashboard/:username" element={<FrontPage />} />
         ******************** hospital_Management Part *************************
         <Route path="/reports" element={<AllReport />} />
        

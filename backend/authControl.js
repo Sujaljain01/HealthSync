@@ -73,10 +73,9 @@ export const register = async(req, res)=>{
 }
 
 export const login = async(req,res)=>{
-    console.log(req.body)
     const username = req.body.formvalue.username;
     const pwd = req.body.formvalue.password;
-    const role = req.body.formvalue.role;
+    const role = req.body.role;
     try{
         if(role === 'Patient')
         {
@@ -86,11 +85,16 @@ export const login = async(req,res)=>{
 
                 else
                 {
-                    if(await bcrypt.compare(pwd, user.password))
+                    console.log(user)
+                    if(user.password == pwd)
                     {
-                        const accessToken = jwt.sign(username, process.env.JWTSECRETKEY)
-                        res.json({data : {accessToken : accessToken, user : user, role : role}});
+                        res.json({data : {user : user, role : role}});
                     }
+                    // if(await bcrypt.compare(pwd, user.password))
+                    // {
+                    //     const accessToken = jwt.sign(username, process.env.JWTSECRETKEY)
+                    //     res.json({data : {accessToken : accessToken, user : user, role : role}});
+                    // }
                 
                     else
                     res.send({message : 'Not allowed'});
@@ -108,6 +112,7 @@ export const login = async(req,res)=>{
                     if(await bcrypt.compare(pwd, user.password))
                     {
                         const accessToken = jwt.sign(username, process.env.JWTSECRETKEY)
+                        console.log(accessToken)
                         res.json({data : {accessToken : accessToken, user : user, role : role}});
                     }
                 

@@ -32,6 +32,7 @@ const doctorSchema = new Schema({
     contactNumber: Number,
     username: String,
     email : String,
+    password : String,
     patients: [{ type: Schema.Types.ObjectId, ref: 'Patient' }]
 });
 
