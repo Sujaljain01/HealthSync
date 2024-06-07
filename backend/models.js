@@ -51,26 +51,26 @@ const medicalRecordSchema = new Schema({
 
 const MedicalRecord = new mongoose.model("MedicalRecord", medicalRecordSchema);
 
-const documentSchema = new Schema({
-    patient: { type: Schema.Types.ObjectId, ref: 'Patient', required: true },
-    fileName: { type: String, required: true },
-    uploadedAt: { type: Date, default: Date.now }
+const appointmentSchema = new Schema({
+    patientId : String,
+    appointmentDate : Date,
+    doctorName : String 
 });
 
-const Document = new mongoose.model("Document", documentSchema);
+const Appointment = new mongoose.model("Appointment", appointmentSchema);
 
 const ex = {
     'models' : {
         'Patient' : Patient,
         'Doctor' : Doctor,
         'MedicalRecord' : MedicalRecord,
-        'Document' : Document
+        'Appointment' : Appointment
     } ,
     'schemas' : {
         'patient' : patientSchema,
         'doctor' : doctorSchema,
         'medicalRecordSchema' : medicalRecordSchema,
-        'documentSchema' : documentSchema,
+        'appointmentSchema' : appointmentSchema
     }
 };
 

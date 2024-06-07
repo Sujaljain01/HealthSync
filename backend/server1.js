@@ -7,33 +7,39 @@ import dotenv from 'dotenv';
 import patientRouter from './patientRoutes.js';
 import doctorRouter from './doctorRoutes.js';
 import multer from 'multer';
+import path from 'path';
 
 const app = express();
 const port = 4000;
 dotenv.config();
+
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use('/files', express.static('files'));
 
 const corsOptions = {
     origin: '*',
     credentials : true,
     optionSuccessStatus : 200
 }
+app.use(cors(corsOptions));
 
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './files')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now();
-      cb(null, uniqueSuffix+file.originalname)
-    }
-  });
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, './files')
+//     },
+//     filename: function (req, file, cb) {
+//       const uniqueSuffix = Date.now();
+//       cb(null, uniqueSuffix+file.originalname)
+//     }
+//   });
 
 
 app.use(cors(corsOptions));
+
 app.use('/patients', patientRouter);
 app.use('/doctors',doctorRouter);
 
