@@ -1,0 +1,11 @@
+[
+    {
+        "_id": "6662f2245a5a73014e616553",
+        "patientId": "2434",
+        "medName": "m1",
+        "duration": "After Meal",
+        "dosage": 2,
+        "medTime": "17:15",
+        "__v": 0
+    }
+]

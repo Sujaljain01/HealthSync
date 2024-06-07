@@ -1,0 +1,77 @@
+.sidebar {
+    background-color: #80CED7;
+    color: #CCDBDC;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .sidebar.open {
+    width: 200px;
+  }
+  
+  .sidebar.closed {
+    width: 70px;
+  }
+  
+  .top_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .logo {
+    display: none;
+    color: #80CED7;
+    font-size: 1.5em;
+  }
+  
+  .open .logo {
+    display: block;
+  }
+  
+  .bars {
+    cursor: pointer;
+  }
+  
+  .menu-icon {
+    font-size: 1.5em;
+    color: #80CED7;
+  }
+  
+  .bottomSection {
+    margin-top: 20px;
+  }
+  
+  .link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: #CCDBDC;
+    transition: background-color 0.3s;
+  }
+  
+  .link:hover {
+    background-color: #007EA7;
+  }
+  
+  .icon {
+    font-size: 1.5em;
+  }
+  
+  .link_text {
+    display: none;
+    margin-left: 10px;
+    font-size: 1em;
+  }
+  
+  .open .link_text {
+    display: block;
+  }
+  
+  .LogOutPath {
+    margin-top: auto;
+    padding-bottom: 20px;
+  }
+  

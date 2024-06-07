@@ -47,40 +47,24 @@ const FrontPage = () => {
           <div className="one commondiv">
             <div>
               <h1>{data?.doctor}</h1>
-              <p>Doctor</p>
+              <p>Register Patient</p>
             </div>
             <MdPersonAdd className="overviewIcon" />
-          </div>
-          <div className="two commondiv">
-            {" "}
-            <div>
-              <h1>{data?.nurse}</h1>
-              <p>Nurse</p>
-            </div>
-            <FaUserNurse className="overviewIcon" />
           </div>
           <div className="three commondiv">
             <div>
               <h1>{data?.patient}</h1>
-              <p>Patient</p>
+              <p>Add Appointment</p>
             </div>
             <RiEmpathizeLine className="overviewIcon" />
           </div>
-          <div className="six commondiv">
-            {" "}
-            <div>
-              <h1>{data?.admin}</h1>
-              <p>Admin</p>
-            </div>
-            <RiAdminLine className="overviewIcon" />
-          </div>
        
 
-          <div className="six commondiv">
+          <div className="four commondiv">
             {" "}
             <div>
               <h1>{data?.appointment}</h1>
-              <p>Appointment</p>
+              <p>Check Appointments</p>
             </div>
             <BsFillBookmarkCheckFill className="overviewIcon" />
           </div>
@@ -88,7 +72,7 @@ const FrontPage = () => {
             {" "}
             <div>
               <h1>{data?.report}</h1>
-              <p>Reports</p>
+              <p>Update Reports</p>
             </div>
             <MdPayment className="overviewIcon" />
           </div>

@@ -59,13 +59,26 @@ const ViewPatient = () => {
   };
 
   async function fetchId() {
-    await axios.get(`http://localhost:4000/doctors/getPatientDetails/${patientId}`).then((response) => {
-      console.log(response.data.patientData);
-      setPatientData(response.data.patientData);
-    })
-
+    // This dummy data now includes fields that match the expected patientData structure
+    const dummyData = {
+        "username": "2434",
+        "name": "ddsctt",
+        "age": 4,
+        "gender": "Male",
+        "contactNumber": 678888,
+        "bloodGroup": "AB+",
+        "documents": [],
+        "__v": 15,
+        "medicalRecords": [
+        ],
+        "healthIssues": [
+          // details not shown, 7 items in array
+        ]
+      
+      
+    };
+    setPatientData(dummyData);
   }
-
 
   return (
     <div>
@@ -121,7 +134,8 @@ const ViewPatient = () => {
           </div>
         </div>
       ) : (
-        <div>Loading patient details...</div>
+       <div>loading...</div>
+        
       )}
     </div>
   );
@@ -148,4 +162,3 @@ const styles = {
 };
 
 export default ViewPatient;
-
