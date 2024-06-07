@@ -12,11 +12,12 @@ import Book_Appointment from "../Pages/Dashboard/Main-Dashboard/AllPages/hospita
 import FrontPage from "../Pages/Dashboard/Main-Dashboard/GlobalFiles/FrontPage";
 import MyCalendar from "../Pages/Dashboard/Main-Dashboard/AllPages/hospital_Management/MyCalendar";
 import ViewAndUpdatePatient from "../Pages/Dashboard/Main-Dashboard/AllPages/hospital_Management/View&UpdatePatientRecord";
+import Precautions from "../Pages/Dashboard/Main-Dashboard/AllPages/Patient/Precautions";
 const AllRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<ViewAndUpdatePatient />} />
+        <Route path="/" element={<Precautions healthIssue="Kidney stone" />} />
         <Route path="/dashboard" element={<FrontPage />} />
         ******************** hospital_Management Part *************************
         <Route path="/reports" element={<AllReport />} />
@@ -24,11 +25,12 @@ const AllRoutes = () => {
         <Route path="/createslip" element={<CreatePatientProfile />} />
         <Route path="/patientdetails" element={<Patient_Details />} />
    
-        ******************** hospital_Management Part *************************
+        ******************** hospital_Management Part ************************
         <Route path="/addpatient" element={<Add_Patient />} />
         <Route path="/bookappointment" element={<Book_Appointment />} />
     
         <Route path="/calendar" element={<MyCalendar />} />
+        <Route path="/precautions/:healthIssue" element={<Precautions />} />
       </Routes>
     </>
   );
