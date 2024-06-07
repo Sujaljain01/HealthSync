@@ -6,6 +6,9 @@ import Sidebar from "../../GlobalFiles/Sidebar";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import './CSS/CreatePatientProfile.css'
+
+
 const notify = (text) => toast(text);
 
 const CreatePatientProfile = () => {
@@ -70,12 +73,17 @@ const CreatePatientProfile = () => {
       <div className="container">
         <Sidebar />
         <div className="AfterSideBar">
-          <div className="Main_Add_Doctor_div">
-            <h1>Create Report</h1>
+          {/* <div className="Main_Add_Doctor_div"> */}
+
+          <div className="form-container">
+            <h2>Create Patient Profile</h2>
             <form>
-            <div>
+            {/* <div> */}
+            
+            <div className="form-group">
+         <br />
             <label>Patient Id</label>
-                <div className="inputdiv">
+                
                   <input
                     type="text"
                     placeholder="Id"
@@ -84,9 +92,10 @@ const CreatePatientProfile = () => {
                     onChange={HandleReportChange}
                     required
                   />
-                </div>
+                
               </div>
-              <div>
+              {/* <div> */}  
+                 <div className="form-group">
                 <label>Patient Name</label>
                 <div className="inputdiv">
                   <input
@@ -99,9 +108,10 @@ const CreatePatientProfile = () => {
                   />
                 </div>
               </div>
-              <div>
+              {/* <div> */}
+              <div className="form-group">
                 <label>Patient Age</label>
-                <div className="inputdiv">
+                {/* <div className="inputdiv"> */}
                   <input
                     type="number"
                     placeholder="Age"
@@ -110,11 +120,11 @@ const CreatePatientProfile = () => {
                     onChange={HandleReportChange}
                     required
                   />
-                </div>
+                
               </div>
-              <div>
+              <div className="form-group">
                 <label>Patient Mobile</label>
-                <div className="inputdiv">
+                
                   <input
                     type="text"
                     placeholder="Mobile"
@@ -123,12 +133,12 @@ const CreatePatientProfile = () => {
                     onChange={HandleReportChange}
                     required
                   />
-                </div>
+                
               </div>
               
-              <div>
+              <div className="form-group">
                 <label>Patient Gender</label>
-                <div className="inputdiv">
+                
                   <select
                     name="patientGender"
                     value={ReportValue.patientGender}
@@ -139,11 +149,11 @@ const CreatePatientProfile = () => {
                     <option value="Female">Female</option>
                     <option value="Others">Others</option>
                   </select>
-                </div>
+                
               </div>
-              <div>
+              <div className="form-group">
                 <label>Patient Blood Group</label>
-                <div className="inputdiv">
+              
                   <select
                     name="patientBloodGroup"
                     value={ReportValue.patientBloodGroup}
@@ -160,7 +170,7 @@ const CreatePatientProfile = () => {
                     <option value="O+">O+</option>
                     <option value="O-">O-</option>
                   </select>
-                </div>
+                
               </div>
 
               

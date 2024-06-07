@@ -1,55 +1,60 @@
+/* CSS/Precautions.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
 .precautions-container {
+    max-width: 800px;
+    margin: 50px auto;
     padding: 20px;
-    margin: 20px auto;
-    max-width: 1000px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 .precautions-heading {
-    color: #003249;
-    font-size: xx-large;
     text-align: center;
+    font-size: 2.5em;
+    color: #1e88e5;
     margin-bottom: 20px;
-    font-size: 24px;
     font-weight: bold;
 }
 
-.precautions-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+.section {
+    margin-bottom: 20px;
 }
 
-.precaution-card {
-    background-color: #9AD1D4;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-}
-
-.precaution-card:hover {
-    transform: translateY(-5px);
-}
-
-.precaution-content {
-    text-align: center;
-}
-
-.precaution-number {
-    color: #007EA7;
-    font-size: 14px;
-    font-weight: bold;
+.section h2 {
+    font-size: 1.5em;
+    color: #333;
     margin-bottom: 10px;
 }
 
-.precaution-text {
-    color: #003249;
-    font-size: 18px;
-    font-weight: bold;
+.section p, .section ul {
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.6;
 }
 
-@media (min-width: 768px) {
-    .precautions-grid {
-        grid-template-columns: repeat(3, 1fr); /* Displaying 3 columns on larger screens */
+ul {
+    padding-left: 20px;
+}
+
+@media (max-width: 768px) {
+    .precautions-container {
+        padding: 10px;
+    }
+
+    .section h2 {
+        font-size: 1.2em;
+    }
+
+    .section p, .section ul {
+        font-size: 1em;
     }
 }

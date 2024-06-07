@@ -94,7 +94,7 @@ const FrontPage = () => {
             {" "}
             <div>
               <h1>{data?.appointment}</h1>
-              <p>Appointment</p>
+              <p>Check Appointments</p>
             </div>
             <BsFillBookmarkCheckFill className="overviewIcon" />
           </div>
@@ -102,7 +102,7 @@ const FrontPage = () => {
             {" "}
             <div>
               <h1>{data?.report}</h1>
-              <p>Reports</p>
+              <p>Update Reports</p>
             </div>
             <MdPayment className="overviewIcon" />
           </div>

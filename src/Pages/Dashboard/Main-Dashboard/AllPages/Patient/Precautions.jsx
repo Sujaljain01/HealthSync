@@ -16,6 +16,8 @@ const Precautions = () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/precautions/${patientId}`);
                 setData(response.data);
+                const response = await axios.get(`http://localhost:4000/api/precautions/${patientId}`);
+                setData(response.data);
             } catch (error) { 
                 setError('Error fetching precautions');
             } finally {
@@ -24,6 +26,7 @@ const Precautions = () => {
         };
 
         fetchPrecautions();
+    }, [patientId]);
     }, [patientId]);
 
     if (loading) return <p>Loading...</p>;
@@ -53,7 +56,43 @@ const Precautions = () => {
                                 <li key={index}>{riskFactor}</li>
                             ))}
                         </ul>
+            <h1 className="precautions-heading">Precautions</h1>
+            {data && (
+                <>
+                    <div className="section">
+                        <h2>Information</h2>
+                        <p>{data.information}</p>
                     </div>
+                    <div className="section">
+                        <h2>Symptoms</h2>
+                        <ul>
+                            {data.symptoms.map((symptom, index) => (
+                                <li key={index}>{symptom}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="section">
+                        <h2>Risk Factors</h2>
+                        <ul>
+                            {data.riskFactors.map((riskFactor, index) => (
+                                <li key={index}>{riskFactor}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="section">
+                        <h2>Precautions</h2>
+                        <ul>
+                            {data.precautions.map((precaution, index) => (
+                                <li key={index}>{precaution}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="section">
+                        <h2>Importance of Medication</h2>
+                        <p>{data.medicationImportance}</p>
+                    </div>
+                </>
+            )}
                     <div className="section">
                         <h2>Precautions</h2>
                         <ul>

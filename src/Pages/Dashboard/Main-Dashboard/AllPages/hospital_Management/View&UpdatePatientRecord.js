@@ -202,7 +202,8 @@ const ViewPatient = () => {
           </div>
         </div>
       ) : (
-        <div>Loading patient details...</div>
+       <div>loading...</div>
+        
       )}
     </div>
   );
@@ -229,4 +230,3 @@ const styles = {
 };
 
 export default ViewPatient;
-

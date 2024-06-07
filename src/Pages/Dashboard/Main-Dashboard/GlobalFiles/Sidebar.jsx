@@ -36,7 +36,7 @@ const Sidebar = () => {
         <div style={{ width: isOpen ? "200px" : "70px" }} className={`sidebar`}>
           <div className="top_section">
             <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
-              HMS
+              HealthSync
             </h1>
             <div
               style={{ marginLeft: isOpen ? "50px" : "0px" }}
@@ -94,44 +94,7 @@ const Sidebar = () => {
                 </div>
               </Link>
            
-      
-            
-              <Link className="link" activeclassname="active" to={"/calendar"}>
-                 <div className="icon">
-                    <BsFillBookmarkCheckFill
-                      className="mainIcon"
-                      style={{ color: "white" }}
-                    />
-                  </div>
-                  <div
-                   style={{ display: isOpen ? "block" : "none" }} 
-                    className="link_text"
-                >
-                  Appointments
-                </div>
-              </Link>
-
-        
-            {/* {user?.userType === "admin" ? (
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/checkpayment"}
-              >
-                <div className="icon">
-                  <RiSecurePaymentLine className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Payments
-                </div>
-              </Link>
-            ) : null} */}
            
-           
-            
               <Link className="link" activeclassname="active" to={"/reports"}>
                 <div className="icon">
                   <TbReportMedical className="mainIcon" />
@@ -178,23 +141,6 @@ const Sidebar = () => {
                 </div>
               </Link>
            
-            {/* {user?.userType === "doctor" ? (
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/patientdetails"}
-              >
-                <div className="icon">
-                  <TbListDetails className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Patients
-                </div>
-              </Link>
-            ) : null} */}
 
             <Link
               className="LogOutPath link"
