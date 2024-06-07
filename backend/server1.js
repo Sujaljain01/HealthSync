@@ -68,6 +68,7 @@ app.use('/doctors', doctorRouter);
 //   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 //   const prompt = `Give me 6 precautions in pointwise for health issue ${healthIssue} ,each precautions should not be more than 5 words`;
+
 app.get('/api/precautions/:patientId', async (req, res) => {
     // const healthIssue = req.params.healthIssue;
     const id = req.params.patientId;

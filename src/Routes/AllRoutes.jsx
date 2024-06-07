@@ -21,14 +21,14 @@ const AllRoutes = () => {
         <Route path="/" element={<DLogin />} />
         <Route path="/dashboard/:username" element={<FrontPage />} />
         ******************** hospital_Management Part *************************
-        <Route path="/reports" element={<AllReport />} />
+        <Route path="/checkAppointments" element={<ViewAppointments />} />
        
-        <Route path="/createslip" element={<CreatePatientProfile />} />
+        <Route path="/patientProfile" element={<CreatePatientProfile />} />
         <Route path="/patientdetails" element={<Patient_Details />} />
    
         ******************** hospital_Management Part ************************
         <Route path="/addpatient" element={<Add_Patient />} />
-        <Route path="/bookappointment" element={<Book_Appointment />} />
+        <Route path="/bookappointment" element={<AddAppointments />} />
     
         <Route path="/calendar" element={<MyCalendar />} />
         <Route path="/precautions/:healthIssue" element={<Precautions />} />

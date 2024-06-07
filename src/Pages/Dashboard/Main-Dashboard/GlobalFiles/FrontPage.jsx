@@ -38,6 +38,21 @@ const FrontPage = () => {
     dispatch(GetAllData());
   }, []);
 
+  function registerPatient()
+  {
+    window.location.href = '/patientProfile'
+  }
+
+  function addAppointment()
+  {
+    window.location.href = '/bookappointment'
+  }
+  
+  function checkAppointment()
+  {
+    window.location.href = '/checkAppointments'
+  }
+
   return (
     <div className="container">
       <Sidebar />
@@ -46,8 +61,7 @@ const FrontPage = () => {
         <div className="maindiv">
           <div className="one commondiv">
             <div>
-              <h1>{data?.doctor}</h1>
-              <p>Doctor</p>
+              <button onClick = {registerPatient} style = {{'backgroundColor' : 'transparent', 'border' : 'white'}}>Register Patient</button>
             </div>
             <MdPersonAdd className="overviewIcon" />
           </div>
@@ -55,14 +69,14 @@ const FrontPage = () => {
             {" "}
             <div>
               <h1>{data?.nurse}</h1>
-              <p>Nurse</p>
+              <button onClick = {addAppointment} style = {{'backgroundColor' : 'transparent', 'border' : 'white'}}>Add Appointment</button>
             </div>
             <FaUserNurse className="overviewIcon" />
           </div>
           <div className="three commondiv">
             <div>
               <h1>{data?.patient}</h1>
-              <p>Patient</p>
+              <button onClick = {checkAppointment} style = {{'backgroundColor' : 'transparent', 'border' : 'white'}}>Check Appointment</button>
             </div>
             <RiEmpathizeLine className="overviewIcon" />
           </div>
@@ -70,13 +84,13 @@ const FrontPage = () => {
             {" "}
             <div>
               <h1>{data?.admin}</h1>
-              <p>Admin</p>
+              <p>Patient Report</p>
             </div>
             <RiAdminLine className="overviewIcon" />
           </div>
        
 
-          <div className="six commondiv">
+          {/* <div className="six commondiv">
             {" "}
             <div>
               <h1>{data?.appointment}</h1>
@@ -94,13 +108,14 @@ const FrontPage = () => {
           </div>
         </div>
         {/* ************************************* */}
-        <div className="patientDetails">
+        {/* <div className="patientDetails">
           <h1>Patient Details</h1>
           <div className="patientBox">
             <Table columns={columns} dataSource={patients} />
           </div>
-        </div>
+        </div> */}
       </div>
+    </div>
     </div>
   );
 };
