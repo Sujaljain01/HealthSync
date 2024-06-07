@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import MedRecs from './MedRecs';
 
 const ViewPatient = () => {
   const [forms, setForms] = useState([{ title: '', file: null }]);
@@ -89,6 +90,7 @@ const ViewPatient = () => {
                 Contact Number: <span className="float-right">{patientData.contactNumber}</span>
               </ListGroupItem>
               <ListGroupItem>Blood Group: <span className="float-right">{patientData.bloodGroup}</span></ListGroupItem>
+              <MedRecs medRecs = {patientData.medicalRecords}/>
             </ListGroup>
           </Card>
           <div style={styles.container}>
