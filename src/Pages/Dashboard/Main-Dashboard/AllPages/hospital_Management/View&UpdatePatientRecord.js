@@ -5,9 +5,17 @@ import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import MedRecs from './MedRecs';
 
 const ViewPatient = () => {
+  // const InitData = {
+  //   medicines:[]
+  //  };
+
+
+  const [med, setMed] = useState({ medName: '', duration: '', dosage: '' , medTime : ''});
+  const [medicines, setMedicines] = useState([]);
   const [forms, setForms] = useState([{ title: '', file: null }]);
   const [patientData, setPatientData] = useState(null);
   const [patientId, setPatientId] = useState('');
+  const [hIssue, setHIssue] = useState('');
   const url = `http://localhost:4000/patients/uploadDoc/${patientId}`;
 
   const handleInputChange = (index, event) => {
@@ -66,6 +74,31 @@ const ViewPatient = () => {
 
   }
 
+  const handleIssueChange = (e) => {
+    setHIssue(e.target.value);
+  }
+
+  const HandleMedChange = (e) => {
+    // Update state based on the changed element's name
+    setMed({
+      ...med,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const HandleMedAdd = async (e) => {
+    e.preventDefault();
+    console.log(med);
+    const newMedicines = [...medicines, med];
+    setMedicines(newMedicines);
+
+    await axios.post(`http://localhost:4000/doctors/updateMedicines/${patientId}`, { newMedicines, hIssue });
+  };
+
+  // const HandleReportChange = (e) => {
+  //   setReportValue({ ...ReportValue, [e.target.name]: e.target.value });
+  // };
+
 
   return (
     <div>
@@ -90,7 +123,55 @@ const ViewPatient = () => {
                 Contact Number: <span className="float-right">{patientData.contactNumber}</span>
               </ListGroupItem>
               <ListGroupItem>Blood Group: <span className="float-right">{patientData.bloodGroup}</span></ListGroupItem>
-              <MedRecs medRecs = {patientData.medicalRecords}/>
+              <MedRecs medRecs={patientData.medicalRecords} />
+              {/* //prescription */}
+              <div>
+                <label>Health Issue</label>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="HealthIssue"
+                    name="medName"
+                    value={hIssue}
+                    onChange={handleIssueChange}
+                  /></div><hr />
+                <label>Medicines</label>
+                <div className="inputdiv">
+                  <input
+                    type="text"
+                    placeholder="PCM"
+                    name="medName"
+                    value={med.medName}
+                    onChange={HandleMedChange}
+                  />
+                  <div>
+                    <label>Time</label>
+                    <div className="inputdiv">
+                      <input
+                        type="time"
+                        name="medTime"
+                        value={med.medTime}
+                        onChange={HandleMedChange}
+                      />
+                    </div>
+                  </div>
+                  <select name="duration" onChange={HandleMedChange}>
+                    <option value="Dosage">Duration</option>
+                    <option value="After Meal">After Meal</option>
+                    <option value="Before Meal">Before Meal</option>
+                  </select>
+                  <select name="dosage" onChange={HandleMedChange}>
+                    <option value="Dosage">Dosage</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select><hr />
+                  <button type="submit" onClick={HandleMedAdd}>Add</button>
+                </div>
+              </div>
+              {/* ************* */}
+
+
             </ListGroup>
           </Card>
           <div style={styles.container}>

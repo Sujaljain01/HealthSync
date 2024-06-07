@@ -17,7 +17,7 @@ const patientSchema = new Schema({
     // },
     bloodGroup : String,
     medicalRecords: [{ type: String}],
-    documents: [{ type: String}]
+    healthIssues: [{ type: String}]
 });
 
 
@@ -59,18 +59,50 @@ const appointmentSchema = new Schema({
 
 const Appointment = new mongoose.model("Appointment", appointmentSchema);
 
+const medicineSchema = new mongoose.Schema({
+    patientId : String,
+    medName: {
+      type: String,
+      trim: true, 
+      maxlength: 100, 
+    },
+    duration: {
+      type: String,
+      enum: ['After Meal', 'Before Meal'], 
+    },
+    dosage: {
+      type: Number,
+    },
+    medTime : String
+  });
+
+  const Medicine = new mongoose.model("Medicine", medicineSchema);
+
+
+  const scheduleSchema = new mongoose.Schema({
+    to : String,
+    body : String,
+    schedule : String
+  });
+
+  const Schedule = new mongoose.model("Schedule", scheduleSchema);
+
 const ex = {
     'models' : {
         'Patient' : Patient,
         'Doctor' : Doctor,
         'MedicalRecord' : MedicalRecord,
-        'Appointment' : Appointment
+        'Appointment' : Appointment,
+        'Medicine' : Medicine,
+        'Schedule' : Schedule
     } ,
     'schemas' : {
-        'patient' : patientSchema,
-        'doctor' : doctorSchema,
+        'patientSchema' : patientSchema,
+        'doctorSchema' : doctorSchema,
         'medicalRecordSchema' : medicalRecordSchema,
-        'appointmentSchema' : appointmentSchema
+        'appointmentSchema' : appointmentSchema,
+        'medicineSchema' : medicineSchema,
+        'scheduleSchema' : scheduleSchema
     }
 };
 

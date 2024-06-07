@@ -6,7 +6,11 @@ import {register, login, logout} from './authControl.js';
 import patientRouter from './patientRoutes.js';
 import doctorRouter from './doctorRoutes.js';
 import multer from 'multer';
+import twilio from 'twilio';
 import dotenv from "dotenv";
+import ex from './models.js';
+import cron from 'node-cron';
+import axios from 'axios';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 
@@ -28,7 +32,10 @@ dotenv.config();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/files', express.static('files'));
+app.use('/files', (req, res, next) => {
+    console.log(`Request for static file: ${req.path}`);
+    next();
+}, express.static('files'));
 
 const corsOptions = {
     origin: '*',
@@ -86,6 +93,114 @@ mongoose.connect("mongodb://127.0.0.1:27017/healthManagement2", {UseNewUrlParser
 app.post('/register',register);
 app.post('/login',login);
 app.get('/logout', logout);
+
+//twilio
+const accountSid ='ACc076b7980df17815d24d60a33fc87565';
+const authToken =  'e4b4db9013152b3cbe80b40939595856';
+const client = twilio(accountSid, authToken);
+const scheduledMessages = [];
+
+// Endpoint to schedule a message
+app.get('/fetch-and-schedule-messages', async (req, res) => {
+    try {
+        const schedules = await ex.models.Schedule.find();
+        for (const schedule of schedules) {
+            scheduleMessage(schedule);
+            
+            console.log('Scheduled message response');
+        }
+        console.log('All messages scheduled successfully!');
+        }
+    catch (error) {
+        console.error('Error fetching schedules:', error);
+        res.status(500).send('Internal server error.');
+    }
+});
+
+const scheduleMessage = ({ to, body, schedule }) => {
+
+    try {
+        const task = cron.schedule(schedule, () => {
+            client.messages.create({
+                body,
+                from: '+17652955927',
+                to
+            }).then(message => {
+                console.log(`Message sent: ${message.sid}`);
+            }).catch(error => {
+                console.error(`Error sending message: ${error}`);
+            });
+        });
+
+        scheduledMessages.push(task);
+
+        console.log('Message scheduled successfully!');
+    } catch (error) {
+        console.log(`Error scheduling message: ${error}`);
+    }
+}
+
+// Endpoint to list all scheduled messages
+app.get('/scheduled-messages', (req, res) => {
+    res.json({
+        scheduledMessages: scheduledMessages.length,
+        schedules: scheduledMessages.map((task, index) => ({
+            id: index,
+            cronTime: task.getCronTime().toString()
+        }))
+    });
+});
+
+function getTime(medTime)
+{
+    console.log(medTime)
+    const match = medTime.match(/^(\d{1,2}):(\d{2})$/);
+    if (!match) {
+        return res.status(400).send('Invalid time format. Please use HH:MM format.');
+    }
+
+    const hours = match[1];
+    const minutes = match[2];
+    console.log(`${minutes} ${hours} 7 6 5`);
+    return `${minutes} ${hours} 7 6 5`
+}
+
+app.get('/constructSchedule', async (req,res)=>{
+    let contact = '';
+    let name = '';
+    await ex.models.Medicine.find().then(async (meds)=>{
+        meds.forEach(async (med)=>{
+            const id = med.patientId;
+            await ex.models.Patient.findOne({username : id}).then((p)=>{
+            contact = p.contactNumber;
+            name = p.name;
+        });
+        console.log(med)
+        const sche = new ex.models.Schedule({
+            to : '+917815076276',
+            body : `Hello ${name}, \n It's time to take ${med.medName}`,
+            schedule : getTime(med.medTime)
+            
+        });
+
+
+
+        sche.save();
+        })
+        
+    })
+})
+
+const cronTime = "50 4 7 6 5";
+function isValidCronTime(cronTime) {
+    // Regular expression for matching the cron expression pattern
+    const cronRegex = /^(\*|[0-9]{1,2})(\/[0-9]{1,2})?(\,[0-9]{1,2})*(\-[0-9]{1,2})?(\-[0-9]{1,2})?(\s+(\*|[0-9]{1,2})(\/[0-9]{1,2})?(\,[0-9]{1,2})*(\-[0-9]{1,2})?(\-[0-9]{1,2})?){4}$/;
+
+    console.log(cronRegex.test(cronTime));
+}
+isValidCronTime(cronTime)
+
+
 app.listen(port, () => {
     console.log(`API is running at http://localhost:${port}`);
   });
