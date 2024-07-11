@@ -1,1 +1,0 @@
-{"analyzer": "word", "binary": false, "decode_error": "strict", "encoding": "utf-8", "input": "content", "lowercase": true, "max_df": 1.0, "max_features": null, "min_df": 1, "ngram_range": [1, 1], "preprocessor": null, "stop_words": null, "strip_accents": null, "token_pattern": "(?u)\\b\\w\\w+\\b", "tokenizer": null, "vocabulary": null}
