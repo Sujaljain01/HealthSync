@@ -196,8 +196,8 @@ app.post('/login', login);
 app.get('/logout', logout);
 
 //twilio
-const accountSid = 'ACc076b7980df17815d24d60a33fc87565';
-const authToken = 'e4b4db9013152b3cbe80b40939595856';
+const accountSid = process.env.accountSid;
+const authToken = process.env.authToken;
 const client = twilio(accountSid, authToken);
 const scheduledMessages = [];
 
@@ -224,7 +224,7 @@ const scheduleMessage = ({ to, body, schedule }) => {
         const task = cron.schedule(schedule, () => {
             client.messages.create({
                 body,
-                from: '+17652955927',
+                from: process.env.from,
                 to
             }).then(message => {
                 console.log(`Message sent: ${message.sid}`);
@@ -277,7 +277,7 @@ app.get('/constructSchedule', async (req, res) => {
             });
             console.log(med)
             const sche = new ex.models.Schedule({
-                to: '+917815076276',
+                to: process.env.to,
                 body: `Hello ${name}, \n It's time to take ${med.medName} of dose ${med.dosage} ${med.duration}`,
                 schedule: getTime(med.medTime)
 
@@ -306,14 +306,7 @@ import schedule from 'node-schedule';
 
 app.use(bodyParser.json());
 
-// const TWILIO_ACCOUNT_SID = 'ACc076b7980df17815d24d60a33fc87565'
-// const TWILIO_AUTH_TOKEN = 'e4b4db9013152b3cbe80b40939595856'
 
-// let call_data = [
-//     {
-//         "call_time": "2024-06-08 00:35:00"
-//     }
-// ]
 
 
 app.get('/fetch-and-schedule-tasks', async (req, res) => {
