@@ -54,7 +54,7 @@ const MedicalRecord = new mongoose.model("MedicalRecord", medicalRecordSchema);
 
 const appointmentSchema = new Schema({
     patientId : String,
-    appointmentDate : Date,
+    appointmentDate : String,
     doctorName : String 
 });
 
@@ -88,6 +88,15 @@ const medicineSchema = new mongoose.Schema({
 
   const Schedule = new mongoose.model("Schedule", scheduleSchema);
 
+  const transcriptSchema = new mongoose.Schema({
+    patientId : String,
+    healthIssues : [String],
+    message : String,
+    doctorName : String
+  });
+
+  const Transcript = new mongoose.model("Transcript", transcriptSchema);
+
 const ex = {
     'models' : {
         'Patient' : Patient,
@@ -95,7 +104,8 @@ const ex = {
         'MedicalRecord' : MedicalRecord,
         'Appointment' : Appointment,
         'Medicine' : Medicine,
-        'Schedule' : Schedule
+        'Schedule' : Schedule,
+        'Transcript' : Transcript
     } ,
     'schemas' : {
         'patientSchema' : patientSchema,
@@ -103,7 +113,8 @@ const ex = {
         'medicalRecordSchema' : medicalRecordSchema,
         'appointmentSchema' : appointmentSchema,
         'medicineSchema' : medicineSchema,
-        'scheduleSchema' : scheduleSchema
+        'scheduleSchema' : scheduleSchema,
+        'transcriptSchema' : transcriptSchema
     }
 };
 

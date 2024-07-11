@@ -69,122 +69,118 @@ app.use('/doctors', doctorRouter);
 
 //   const prompt = `Give me 6 precautions in pointwise for health issue ${healthIssue} ,each precautions should not be more than 5 words`;
 
-app.get('/api/precautions/:patientId', async (req, res) => {
-    // const healthIssue = req.params.healthIssue;
-    const id = req.params.patientId;
-      await ex.models.Patient.find({username : id}).then(async (p)=>{
-          const healthIssue = p.healthIssues;
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+// app.get('/api/precautions/:patientId', async (req, res) => {
+//     // const healthIssue = req.params.healthIssue;
+//     const id = req.params.patientId;
+//     console.log(id)
+//       await ex.models.Patient.findOne({username : id}).then(async (p)=>{
+//           const healthIssue = p.healthIssues;
+//           console.log(healthIssue[0])
+//         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
   
   
-    const prompt = `Provide detailed below information on the disease called ${healthIssue},each should contain only 5 points:
-      Information
-      (line space)
-      Symptoms (each with a tab space)
-      (line space)
-      Risk factors (each with a tab space)
-      (line space)
-      Precautions (each with a tab space)
-      (line space)
-      Importance of Medication prescribed by the doctor (line space)
+//     const prompt = `Provide detailed below information on the disease called ${healthIssue},each should contain only 5 points:
+//       Information
+//       (line space)
+//       Symptoms (each with a tab space)
+//       (line space)
+//       Risk factors (each with a tab space)
+//       (line space)
+//       Precautions (each with a tab space)
+//       (line space)
+//       Importance of Medication prescribed by the doctor (line space)
       
       
-      *Example output is given below:*
-      Information: Chest pain
+//       *Example output is given below:*
+//       Information: Chest pain
   
-      Symptoms:
-      Fluttering in your chest (palpitations)    Slow heartbeat (bradycardia)    Chest pain or tightness  Lightheadedness or dizziness    Fainting (syncope)
+//       Symptoms:
+//       Fluttering in your chest (palpitations)    Slow heartbeat (bradycardia)    Chest pain or tightness  Lightheadedness or dizziness    Fainting (syncope)
   
-      Risk factors:
-      Age (arrhythmias are more common in older adults)   Heart disease   High blood pressure    Diabetes    Obesity
+//       Risk factors:
+//       Age (arrhythmias are more common in older adults)   Heart disease   High blood pressure    Diabetes    Obesity
   
-      Precautions:
-      Maintain a healthy weight   Eat a healthy diet  Exercise regularly  Manage stress
+//       Precautions:
+//       Maintain a healthy weight   Eat a healthy diet  Exercise regularly  Manage stress
   
-      Importance of Medication:
-      If you have a heart condition, it's important to follow your doctor's treatment plan to help reduce your risk of arrhythmias`;
+//       Importance of Medication:
+//       If you have a heart condition, it's important to follow your doctor's treatment plan to help reduce your risk of arrhythmias`;
   
-    try {
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = await response.text();
+//     try {
+//         const result = await model.generateContent(prompt);
+//         const response = await result.response;
+//         const text = await response.text();
   
-        // Parsing the response text into structured data
-        const sections = text.split('\n\n').filter(section => section.trim() !== '');
-        const structuredData = {
-          information: sections[0].trim(),
-          symptoms: sections[1].replace('Symptoms:', '').split('\t').map(item => item.trim()).filter(item => item),
-          riskFactors: sections[2].replace('Risk factors:', '').split('\t').map(item => item.trim()).filter(item => item),
-          precautions: sections[3].replace('Precautions:', '').split('\t').map(item => item.trim()).filter(item => item),
-          medicationImportance: sections[4].trim()
-        };
+//         // Parsing the response text into structured data
+//         const sections = text.split('\n\n').filter(section => section.trim() !== '');
+//         const structuredData = {
+//           information: sections[1].trim(),
+//           symptoms: sections[2].replace('Symptoms:', '').split('\t').map(item => item.trim()).filter(item => item),
+//           riskFactors: sections[3].replace('Risk factors:', '').split('\t').map(item => item.trim()).filter(item => item),
+//           precautions: sections[4].replace('Precautions:', '').split('\t').map(item => item.trim()).filter(item => item),
+//           medicationImportance: sections[5].trim()
+//         };
   
-        res.json(structuredData);
-    } catch (error) {
-        console.error("Error generating content:", error);
-        res.status(500).send("Error generating content");
-    }
-  });
-  })
+//         res.json(structuredData);
+//     } catch (error) {
+//         console.error("Error generating content:", error);
+//         res.status(500).send("Error generating content");
+//     }
+//   });
+//   })
 
 
 
 app.get('/api/precautions/:patientId', async (req, res) => {
-    // const healthIssue = req.params.healthIssue;
     const id = req.params.patientId;
-    await ex.models.Patient.find({ username: id }).then(async (p) => {
-        const healthIssue = p.healthIssues;
+    await ex.models.Patient.findOne({ username: id }).then(async (p) => {
+        console.log(p)
+        const healthIssue = p.healthIssues[0];
+        console.log(healthIssue)
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 
-        const prompt = `Provide detailed below information on the disease called ${healthIssue},each should contain only 5 points:
-      Information
-      (line space)
-      Symptoms (each with a tab space)
-      (line space)
-      Risk factors (each with a tab space)
-      (line space)
-      Precautions (each with a tab space)
-      (line space)
-      Importance of Medication prescribed by the doctor (line space)
-      
-      
-      **Example output is given below:**
-      Information: Chest pain
-  
-      Symptoms:
-      Fluttering in your chest (palpitations)    Slow heartbeat (bradycardia)    Chest pain or tightness  Lightheadedness or dizziness    Fainting (syncope)
-  
-      Risk factors:
-      Age (arrhythmias are more common in older adults)   Heart disease   High blood pressure    Diabetes    Obesity
-  
-      Precautions:
-      Maintain a healthy weight   Eat a healthy diet  Exercise regularly  Manage stress
-  
-      Importance of Medication:
-      If you have a heart condition, it's important to follow your doctor's treatment plan to help reduce your risk of arrhythmias`;
+        const prompt = `Provide the information on a given health issue "${healthIssue}" in the provided output format:
+Symptoms:
 
-        try {
-            const result = await model.generateContent(prompt);
-            const response = await result.response;
-            const text = await response.text();
+Symptom 1
+Symptom 2
+Symptom 3
+Symptom 4
+Symptom 5
 
-            // Parsing the response text into structured data
-            const sections = text.split('\n\n').filter(section => section.trim() !== '');
-            const structuredData = {
-                information: sections[0].trim(),
-                symptoms: sections[1].replace('Symptoms:', '').split('\t').map(item => item.trim()).filter(item => item),
-                riskFactors: sections[2].replace('Risk factors:', '').split('\t').map(item => item.trim()).filter(item => item),
-                precautions: sections[3].replace('Precautions:', '').split('\t').map(item => item.trim()).filter(item => item),
-                medicationImportance: sections[4].trim()
-            };
 
-            res.json(structuredData);
-        } catch (error) {
-            console.error("Error generating content:", error);
-            res.status(500).send("Error generating content");
-        }
-    });
+Risk Factors:
+
+Risk factor 1
+Risk factor 2
+Risk factor 3
+Risk factor 4
+
+
+Precautions:
+
+Precaution 1
+Precaution 2
+Precaution 3
+Precaution 4
+Precaution 5
+
+dont display anything except the above asked,if you get less content just print that much only`;
+
+
+  try {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = await response.text();
+    // const jsonResponse = JSON.parse(text);
+       
+      res.json(text);
+  } catch (error) {
+      console.error("Error generating content:", error);
+      res.status(500).send("Error generating content");
+  }
+});
 })
 
 mongoose.connect("mongodb://127.0.0.1:27017/healthManagement2", { UseNewUrlParser: true }).then(function () {
@@ -265,8 +261,8 @@ function getTime(medTime) {
 
     const hours = match[1];
     const minutes = match[2];
-    console.log(`${minutes} ${hours} 7 6 5`);
-    return `${minutes} ${hours} 7 6 5`
+    console.log(`${minutes} ${hours} 8 6 6`);
+    return `${minutes} ${hours} 8 6 6`
 }
 
 app.get('/constructSchedule', async (req, res) => {
@@ -282,7 +278,7 @@ app.get('/constructSchedule', async (req, res) => {
             console.log(med)
             const sche = new ex.models.Schedule({
                 to: '+917815076276',
-                body: `Hello ${name}, \n It's time to take ${med.medName}`,
+                body: `Hello ${name}, \n It's time to take ${med.medName} of dose ${med.dosage} ${med.duration}`,
                 schedule: getTime(med.medTime)
 
             });
@@ -304,6 +300,60 @@ function isValidCronTime(cronTime) {
 }
 isValidCronTime(cronTime)
 
+//twilio call
+
+import schedule from 'node-schedule';
+
+app.use(bodyParser.json());
+
+// const TWILIO_ACCOUNT_SID = 'ACc076b7980df17815d24d60a33fc87565'
+// const TWILIO_AUTH_TOKEN = 'e4b4db9013152b3cbe80b40939595856'
+
+// let call_data = [
+//     {
+//         "call_time": "2024-06-08 00:35:00"
+//     }
+// ]
+
+
+app.get('/fetch-and-schedule-tasks', async (req, res) => {
+    try {
+        const call_data = await ex.models.Appointment.find();
+        console.log(call_data)
+        call_data.forEach(call => {
+            console.log(call.appointmentDate)
+            const call_time = `${call.appointment} 11:50:00`
+            const callDate = new Date(call_time);
+            console.log(callDate)
+            schedule.scheduleJob(callDate, () => {
+                scheduleTask();
+            });
+        });
+        res.status(200).send('All tasks scheduled successfully!');
+    } catch (error) {
+        console.error('Error fetching schedules:', error);
+        res.status(500).send('Internal server error.');
+    }
+});
+
+const scheduleTask = () => {
+    // app.get('/call', async (req,res)=>{
+        
+    try {
+        client.calls.create({
+            twiml: '<Response><Say>Appoinment Today</Say></Response>',
+            to : '+917815076276',
+            from: '+17652955927'
+        }).then(call => {
+            console.log(`Call initiated: ${call.sid}`);
+        }).catch(error => {
+            console.error(`Error initiating call: ${error}`);
+        });
+           
+    } catch (error) {
+        console.error('Error scheduling task:', error);
+    }
+    };
 
 app.listen(port, () => {
     console.log(`API is running at http://localhost:${port}`);

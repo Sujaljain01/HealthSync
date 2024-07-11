@@ -85,10 +85,9 @@ export const login = async(req,res)=>{
 
                 else
                 {
-                    console.log(user)
                     if(user.password == pwd)
                     {
-                        res.json({data : {user : user, role : role}});
+                        res.json({message : 'OK', data : {user : user, role : role}});
                     }
                     // if(await bcrypt.compare(pwd, user.password))
                     // {
@@ -109,11 +108,16 @@ export const login = async(req,res)=>{
 
                 else
                 {
-                    if(await bcrypt.compare(pwd, user.password))
+                    console.log(pwd)
+                    // if(await bcrypt.compare(pwd, user.password))
+                    // {
+                    //     const accessToken = jwt.sign(username, process.env.JWTSECRETKEY)
+                    //     console.log(accessToken)
+                    //     res.json({data : {accessToken : accessToken, user : user, role : role}});
+                    // }
+                    if(user.password == pwd)
                     {
-                        const accessToken = jwt.sign(username, process.env.JWTSECRETKEY)
-                        console.log(accessToken)
-                        res.json({data : {accessToken : accessToken, user : user, role : role}});
+                        res.json({message : 'OK', data : {user : user, role : role}});
                     }
                 
                     else

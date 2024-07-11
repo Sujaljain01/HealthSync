@@ -5,18 +5,17 @@ function SingleAppointment(props) {
     return (
         <div>
             <span>
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '18rem' , height : '6rem'}}>
                     <Card.Body>
-                        <Card.Title>{props.patientName}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">{props.doctorName}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">{props.contactNumber}</Card.Subtitle>
+                        <Card.Title>Patient Name: {props.patientName}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">Doctor Name: {props.doctorName}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">Contact Name {props.contactNumber}</Card.Subtitle>
                         <Card.Text>
-                            {props.appDate}
+                            Appointment Date: {props.appDate}
                         </Card.Text>
-                        <hr></hr>
                     </Card.Body>
                 </Card>
-            </span>
+            </span><hr/>
         </div>
     )
 }

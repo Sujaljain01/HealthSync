@@ -54,7 +54,21 @@ const CreatePatientProfile = () => {
     };
     try {
       console.log(data);
-      axios.post('http://localhost:4000/doctors/patientRegistration',data)
+      axios.post('http://localhost:4000/doctors/patientRegistration',data).then((res)=>{
+        if(res.data.message == 'patient registered')
+          notify('Registration successful');
+        else
+         notify('Cannot register')
+
+         setReportValue({
+          patientId : "",
+          patientAge: "",
+          patientMobile: "",
+          patientBloodGroup: "",
+          patientGender: "",
+          patientName: ""
+      })
+      })
     } catch (error) {
       console.log(error);
     }

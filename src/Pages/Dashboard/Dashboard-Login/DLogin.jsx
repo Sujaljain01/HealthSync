@@ -129,14 +129,19 @@ const DLogin = () => {
         e.preventDefault();
         console.log("role",role)
         await axios.post('http://localhost:4000/login',{formvalue, role},{headers: {'Content-Type': 'application/json'}}).then((response)=>{
-        
-        if(response.statusText === 'OK') 
+       console.log(response.data)
+        if(response.data.message === 'OK') 
         {
-            window.location.href = `/dashboard/${response.data.data.user.username}`;
+          notify("Logging in");
+          if(role == 'Patient')
+            window.location.href = `/patientHome/${response.data.data.user.username}`;
+          else
+          window.location.href = `/dashboard/${response.data.data.user.username}`;
         }
 
         else
         {
+        notify("Wrong credentials");
         console.log('login failed');
         }
     });
@@ -213,9 +218,9 @@ return (
           <img src={admin} alt="profile" />
         </div>
         <div>
-          <p>username
+          {/* <p>username
             - 100</p>
-          <p>Password - masai</p>
+          <p>Password - masai</p> */}
           <form onSubmit={HandleSubmit}>
             <h3>{role} username
             </h3>

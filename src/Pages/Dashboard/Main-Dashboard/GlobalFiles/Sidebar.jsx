@@ -33,129 +33,79 @@ const Sidebar = () => {
   return (
     <>
       <div>
-        <div style={{ width: isOpen ? "200px" : "70px" }} className={`sidebar`}>
-          <div className="top_section">
-            <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
+        <div style={{ ...styles.sidebar, width: isOpen ? "200px" : "70px" }}>
+          <div style={styles.topSection}>
+            <h1 style={{ ...styles.logo, display: isOpen ? "block" : "none" }}>
               HealthSync
             </h1>
-            <div
-              style={{ marginLeft: isOpen ? "50px" : "0px" }}
-              className="bars"
-            >
-              <ImMenu onClick={toggle} style={{ cursor: "pointer" }} />
+            <div style={{ ...styles.bars, marginLeft: isOpen ? "50px" : "0px" }}>
+              <ImMenu onClick={toggle} style={styles.menuIcon} />
             </div>
           </div>
-          <div className="bottomSection">
-            <Link className="link" activeclassname="active" to={"/dashboard"}>
-              <div className="icon">
-                <MdDashboardCustomize className="mainIcon" />
+          <div style={styles.bottomSection}>
+            <Link style={styles.link} to="/dashboard">
+              <div style={styles.icon}>
+                <MdDashboardCustomize style={styles.mainIcon} />
               </div>
-              <div
-                style={{ display: isOpen ? "block" : "none" }}
-                className="link_text"
-              >
-                DashBoard
+              <div style={{ ...styles.linkText, display: isOpen ? "block" : "none" }}>
+                Dashboard
               </div>
             </Link>
 
-            
-            
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/addpatient"}
-              >
-                <div className="icon">
-                  <FaHospitalUser className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Add Patient
-                </div>
-              </Link>
-            
+            <Link style={styles.link} to="/addpatient">
+              <div style={styles.icon}>
+                <FaHospitalUser style={styles.mainIcon} />
+              </div>
+              <div style={{ ...styles.linkText, display: isOpen ? "block" : "none" }}>
+                Add Patient
+              </div>
+            </Link>
 
-            
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/bookappointment"}
-              >
-                <div className="icon">
-                  <BsBookmarkPlus className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Appointments
-                </div>
-              </Link>
-           
-           
-              <Link className="link" activeclassname="active" to={"/reports"}>
-                <div className="icon">
-                  <TbReportMedical className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Reports
-                </div>
-              </Link>
-            
-            
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/checkappointment"}
-              >
-                <div className="icon">
-                  <BsFillBookmarkCheckFill className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Appointments
-                </div>
-              </Link>
-            
-           
-              <Link
-                className="link"
-                activeclassname="active"
-                to={"/createslip"}
-              >
-                <div className="icon">
-                  <BiDetail className="mainIcon" />
-                </div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="link_text"
-                >
-                  Create Report
-                </div>
-              </Link>
-           
+            <Link style={styles.link} to="/bookappointment">
+              <div style={styles.icon}>
+                <BsBookmarkPlus style={styles.mainIcon} />
+              </div>
+              <div style={{ ...styles.linkText, display: isOpen ? "block" : "none" }}>
+                Appointments
+              </div>
+            </Link>
+
+            <Link style={styles.link} to="/reports">
+              <div style={styles.icon}>
+                <TbReportMedical style={styles.mainIcon} />
+              </div>
+              <div style={{ ...styles.linkText, display: isOpen ? "block" : "none" }}>
+                Reports
+              </div>
+            </Link>
+
+            <Link style={styles.link} to="/checkappointment">
+              <div style={styles.icon}>
+                <BsFillBookmarkCheckFill style={styles.mainIcon} />
+              </div>
+              <div style={{ ...styles.linkText, display: isOpen ? "block" : "none" }}>
+                Check Appointments
+              </div>
+            </Link>
+
+            <Link style={styles.link} to="/createslip">
+              <div style={styles.icon}>
+                <BiDetail style={styles.mainIcon} />
+              </div>
+              <div style={{ ...styles.linkText, display: isOpen ? "block" : "none" }}>
+                Create Report
+              </div>
+            </Link>
 
             <Link
-              className="LogOutPath link"
-              onClick={() => {
-                dispatch({ type: "AUTH_LOGOUT" });
-              }}
-              to={"/"}
+              style={styles.link}
+              onClick={() => dispatch({ type: "AUTH_LOGOUT" })}
+              to="/"
             >
-              <div className="icon">
-                <FiLogOut />
+              <div style={styles.icon}>
+                <FiLogOut style={styles.mainIcon} />
               </div>
-              <div
-                style={{ display: isOpen ? "block" : "none" }}
-                className="link_text"
-              >
+              <div style={{ ...styles.linkText, display: isOpen ? "block" : "none" }}>
                 Logout
               </div>
             </Link>
@@ -164,6 +114,62 @@ const Sidebar = () => {
       </div>
     </>
   );
+};
+
+const styles = {
+  sidebar: {
+    height: '100vh',
+    backgroundColor: '#4c51bf',
+    transition: 'width 0.3s',
+    paddingTop: '10px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  topSection: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '20px',
+  },
+  logo: {
+    color: '#fff',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    margin: 0,
+  },
+  bars: {
+    cursor: 'pointer',
+  },
+  menuIcon: {
+    color: '#fff',
+    fontSize: '1.5rem',
+  },
+  bottomSection: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  link: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px',
+    textDecoration: 'none',
+    color: '#fff',
+    transition: 'background 0.3s',
+  },
+  linkText: {
+    fontSize: '1rem',
+  },
+  icon: {
+    marginRight: '10px',
+  },
+  mainIcon: {
+    fontSize: '1.5rem',
+  },
 };
 
 export default Sidebar;

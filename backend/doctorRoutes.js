@@ -26,6 +26,7 @@ router.post('/patientRegistration', async (req, res) => {
     }
     catch (e) {
         console.log(e);
+        res.send({message : 'error'});
     }
 })
 
@@ -46,11 +47,12 @@ router.post('/updateAppointments', async (req, res) => {
         console.log(req.body);
         const patientId = req.body.patientId;
         const appDate = req.body.AppointmentDate;
+        const date = new Date(appDate).toISOString().split('T')[0];
         const docName = req.body.DoctorName;
         const newApp = new ex.models.Appointment({
             patientId: patientId,
             doctorName: docName,
-            appointmentDate: appDate,
+            appointmentDate: date,
         });
 
         newApp.save();
@@ -58,13 +60,14 @@ router.post('/updateAppointments', async (req, res) => {
     }
     catch (e) {
         console.log(e);
+        res.send({message : 'appointment could not be added'})
     }
 })
 
 router.get('/getAllAppointments/:date', async (req, res) => {
     try {
         const appDate = req.params.date;
-
+        console.log(appDate);
         // Find appointments for the specified date
         const appointments = await ex.models.Appointment.find({ appointmentDate: appDate });
 
@@ -110,11 +113,27 @@ router.post('/updateMedicines/:patientId', async (req, res) => {
     })
 
     await ex.models.Patient.findOne({username : id}).then((p)=>{
+        if(p == null)
+        res.send({messaage : 'NO'})
+        else
+        {
         p.healthIssues.push(healthIssue);
         p.save();
+        }
     });
 
-    res.send({'message' : 'Updated'});}
+    res.send({message : 'Updated'});}
+    catch(e)
+    {
+        console.log(e);
+        res.send({message : 'NO'});
+    }
+})
+
+router.get('/getQueries', async (req,res)=>{
+    try{await ex.models.Transcript.find().then((trans)=>{
+        res.send(trans);
+    })}
     catch(e)
     {
         console.log(e);
