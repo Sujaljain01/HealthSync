@@ -25,7 +25,6 @@ export const authenticate = async(req,res,next)=>{
                 };
                 console.log("token verified");
                 next();
-                // You can use the decoded information as needed
             }
         });
         

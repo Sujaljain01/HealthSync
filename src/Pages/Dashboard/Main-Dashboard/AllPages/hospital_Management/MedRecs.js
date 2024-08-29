@@ -8,8 +8,8 @@ function MedRecs(props) {
         return (
         <SingleMedRec key = {medRec} url = {url} />
         )}
+    ) 
     )
-    )
-}
+} 
 
-export default MedRecs;
+export default MedRecs; 

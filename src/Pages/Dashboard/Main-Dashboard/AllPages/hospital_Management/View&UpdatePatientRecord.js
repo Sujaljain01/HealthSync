@@ -62,7 +62,7 @@ const ViewAndUpdatePatient = () => {
     } catch (error) {
       console.error('Error fetching patient data:', error);
     }
-  };
+  }; 
 
   const handleIssueChange = (e) => {
     setHIssue(e.target.value);
@@ -80,7 +80,7 @@ const ViewAndUpdatePatient = () => {
       await axios.post(`http://localhost:4000/doctors/updateMedicines/${patientId}`, { newMedicines, hIssue }).then((res)=>{
         if(res.data.message == 'Updated')
         {
-          notify('Medicine added successfully')
+          notify('Medicine added  successfully')
         }
         else
         {

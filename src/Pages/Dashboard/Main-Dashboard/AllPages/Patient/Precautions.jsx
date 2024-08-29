@@ -19,7 +19,7 @@ const Precautions = () => {
             } finally {
                 setLoading(false);
             }
-        };
+         };
 
         fetchPrecautions();
     }, [patientId]);

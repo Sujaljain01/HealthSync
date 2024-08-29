@@ -5,23 +5,15 @@ const patientSchema = new Schema({
     username : String,
     name:String,
     age: Number,
-    //email : String,
     password : String,
     gender: { type: String, enum: ['Male', 'Female', 'Other']},
     contactNumber: Number,
-    // address: {
-    //     street: String,
-    //     city: String,
-    //     state: String,
-    //     postalCode: String
-    // },
     bloodGroup : String,
     medicalRecords: [{ type: String}],
     healthIssues: [{ type: String}]
 });
-
-
-
+ 
+ 
 const Patient = new mongoose.model("Patient", patientSchema);
 
 
@@ -92,10 +84,10 @@ const medicineSchema = new mongoose.Schema({
     patientId : String,
     healthIssues : [String],
     message : String,
-    doctorName : String
+    doctorName : String 
   });
 
-  const Transcript = new mongoose.model("Transcript", transcriptSchema);
+ const Transcript = new mongoose.model("Transcript", transcriptSchema);
 
 const ex = {
     'models' : {
@@ -106,7 +98,7 @@ const ex = {
         'Medicine' : Medicine,
         'Schedule' : Schedule,
         'Transcript' : Transcript
-    } ,
+    } , 
     'schemas' : {
         'patientSchema' : patientSchema,
         'doctorSchema' : doctorSchema,

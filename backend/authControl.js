@@ -42,7 +42,6 @@ export const register = async(req, res)=>{
                     doc.save();
                     res.send({message : 'OK'})
                 }
-            
                 else
                 res.send("username exists");
             }

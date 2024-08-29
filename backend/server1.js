@@ -15,17 +15,15 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 
 dotenv.config();
-
 const apiKey = process.env.API_KEY;
 if (!apiKey) {
     throw new Error("API_KEY is missing in the environment variables.");
 }
 
 const genAI = new GoogleGenerativeAI(apiKey);
-
-
 const app = express();
 const port = 4000;
+
 dotenv.config();
 
 
@@ -138,7 +136,6 @@ app.get('/api/precautions/:patientId', async (req, res) => {
         const healthIssue = p.healthIssues[0];
         console.log(healthIssue)
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
 
         const prompt = `Provide the information on a given health issue "${healthIssue}" in the provided output format:
 Symptoms:
@@ -261,8 +258,8 @@ function getTime(medTime) {
 
     const hours = match[1];
     const minutes = match[2];
-    console.log(`${minutes} ${hours} 8 6 6`);
-    return `${minutes} ${hours} 8 6 6`
+    console.log(`${minutes} ${hours} 29 6 5`);
+    return `${minutes} ${hours} 29 8 5`
 }
 
 app.get('/constructSchedule', async (req, res) => {
@@ -305,9 +302,6 @@ isValidCronTime(cronTime)
 import schedule from 'node-schedule';
 
 app.use(bodyParser.json());
-
-
-
 
 app.get('/fetch-and-schedule-tasks', async (req, res) => {
     try {
