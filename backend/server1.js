@@ -180,12 +180,36 @@ dont display anything except the above asked,if you get less content just print 
 });
 })
 
-mongoose.connect("mongodb://127.0.0.1:27017/healthManagement2", { UseNewUrlParser: true }).then(function () {
-    console.log("connected")
-}).catch(function (err) {
-    console.log(err);
-});
+mongoose.connect("mongodb://127.0.0.1:27017/healthManagement2", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connected to MongoDB");
+    checkConnectionStatus(); // Call the function to check the connection status
+  })
+  .catch((err) => {
+    console.log("Error connecting to MongoDB:", err);
+  });
 
+// Function to check Mongoose connection status
+function checkConnectionStatus() {
+  const connectionStatus = mongoose.connection.readyState;
+  switch (connectionStatus) {
+    case 0:
+      console.log("Disconnected");
+      break;
+    case 1:
+      console.log("Connected");
+      break;
+    case 2:
+      console.log("Connecting");
+      break;
+    case 3:
+      console.log("Disconnecting");
+      break;
+    default:
+      console.log("Unknown state");
+      break;
+  }
+}
 
 
 app.post('/register', register);
@@ -270,7 +294,7 @@ app.get('/constructSchedule', async (req, res) => {
             const id = med.patientId;
             await ex.models.Patient.findOne({ username: id }).then((p) => {
                 contact = p.contactNumber;
-                name = p.name;
+                name = p.name; 
             });
             console.log(med)
             const sche = new ex.models.Schedule({

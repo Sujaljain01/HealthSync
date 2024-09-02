@@ -3,6 +3,17 @@ import bcrypt from 'bcrypt';
 import ex from './models.js';
 import dotenv from 'dotenv';
 dotenv.config();
+app.use('/api', logoutRouter);
+const router = express.Router();
+
+router.post('/logout', authenticateToken, (req, res) => {
+  try {
+
+    res.status(200).send('Logged out successfully');
+  } catch (err) {
+    res.status(500).send('Error logging out');
+  }
+});
 
 export const register = async(req, res)=>{
     const username = req.body.formvalue.username;
@@ -147,16 +158,4 @@ function authenticateToken(req, res, next)
     req.user = user
     next()
 });
-}
-
-export const logout = async(req, res)=>{
-        try{
-            let randomNumberToAppend = toString(Math.floor((Math.random() * 1000) + 1));
-            let hashedRandomNumberToAppend = await bcrypt.hash(randomNumberToAppend, 10);
-        
-            req.token = req.token + hashedRandomNumberToAppend;
-            return res.status(200).json('logout');
-        }catch(err){
-            return res.status(500).json(err.message);
-        }
 }

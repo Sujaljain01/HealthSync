@@ -88,15 +88,6 @@ const Sidebar = () => {
               </div>
             </Link>
 
-            <Link style={styles.link} to="/createslip">
-              <div style={styles.icon}>
-                <BiDetail style={styles.mainIcon} />
-              </div>
-              <div style={{ ...styles.linkText, display: isOpen ? "block" : "none" }}>
-                Create Report
-              </div>
-            </Link>
-
             <Link
               style={styles.link}
               onClick={() => dispatch({ type: "AUTH_LOGOUT" })}

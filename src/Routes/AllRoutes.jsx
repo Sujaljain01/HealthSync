@@ -13,7 +13,6 @@ import ViewAndUpdatePatient from "../Pages/Dashboard/Main-Dashboard/AllPages/hos
 import Precautions from "../Pages/Dashboard/Main-Dashboard/AllPages/Patient/Precautions";
 // import Gemini from '../Pages/Dashboard/Main-Dashboard/AllPages/Patient/Gemini';
 // Change this import statement in AllRoutes.jsx
-import Gemini from '../Pages/Dashboard/Main-Dashboard/AllPages/Patient/gemini';
 import PatientDashboard from "../Pages/Dashboard/Main-Dashboard/AllPages/Patient/PatientDashboard";
 import ViewAppointments from "../Pages/Dashboard/Main-Dashboard/AllPages/hospital_Management/ViewAppointments";
 import Dictaphone from "../Pages/Dashboard/Main-Dashboard/AllPages/Patient/Dictaphone";
